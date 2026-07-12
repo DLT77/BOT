@@ -183,15 +183,14 @@ client.on('interactionCreate', async interaction => {
 
             embedDesc += `**⚠️ PAYMENT INSTRUCTIONS:**\n`;
             embedDesc += `> Payments must **STRICTLY** be sent as **"Friends and Family"** *(Ami proche)*.\n`;
-            embedDesc += `> *Any payment sent as "Goods and Services" will be refunded and the asset will not be delivered.*`;
+            embedDesc += `> *Any payment sent as "Goods and Services" will not be refunded and the asset will not be delivered !*`;
 
             const assetEmbed = new EmbedBuilder()
                 .setTitle(`📦 ASSET : ${name}`)
                 .setDescription(embedDesc)
                 .setColor('#0079C1') // Bleu officiel de PayPal
                 .setImage(image)
-                .setThumbnail('https://cdn3.emoji.gg/emojis/1716_PAYPAL.png') // Petit logo PayPal stylé en haut à droite
-                .setFooter({ text: 'Automated Asset Store • Secure payment via PayPal', iconURL: 'https://cdn3.emoji.gg/emojis/1716_PAYPAL.png' })
+                .setFooter({ text: 'Automated Asset Store • Secure payment via PayPal', iconURL: 'https://cdn3.emoji.gg/emojis/435031-shoppingcart.png' })
                 .setTimestamp();
 
             // Création du bouton avec le lien
