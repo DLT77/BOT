@@ -5,7 +5,7 @@ const {
 } = require('discord.js');
 
 // METS TON NOUVEAU TOKEN ICI ENTRE LES GUILLEMETS
-const TOKEN = 'MTUyNTg0MDUzNzQxNTA2MTUyNA.GEXuV1.oTjD7cmG2sTIBxrvTdS3SBviKbPIyWsoujh9lg'; 
+const TOKEN = process.env.BOT_TOKEN;
 const CLIENT_ID = '1525840537415061524'; // Ton ID de bot
 const ROLE_MEMBER_ID = '1525526172493025412'; // ID de l'auto-role
 
