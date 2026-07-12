@@ -168,7 +168,7 @@ client.on('interactionCreate', async interaction => {
             const video = interaction.options.getString('video_url');
 
             // Ton lien PayPal
-            const paypalLink = 'https://paypal.me/DeltX77?country.x=FR&locale.x=fr_FR';
+            const paypalLink = 'https://www.paypal.com/paypalme/DeltX77';
 
             // Construction de la description (Design Pro avec Markdown)
             let embedDesc = `> ${desc}\n\n`;
@@ -190,15 +190,15 @@ client.on('interactionCreate', async interaction => {
                 .setDescription(embedDesc)
                 .setColor('#0079C1') // Bleu officiel de PayPal
                 .setImage(image)
-                .setThumbnail('https://i.imgur.com/Wh2OQew.png') // Petit logo PayPal stylé en haut à droite
-                .setFooter({ text: 'Automated Asset Store • Secure payment via PayPal', iconURL: 'https://i.imgur.com/Wh2OQew.png' })
+                .setThumbnail('https://cdn3.emoji.gg/emojis/1716_PAYPAL.png') // Petit logo PayPal stylé en haut à droite
+                .setFooter({ text: 'Automated Asset Store • Secure payment via PayPal', iconURL: 'https://cdn3.emoji.gg/emojis/1716_PAYPAL.png' })
                 .setTimestamp();
 
             // Création du bouton avec le lien
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setLabel('Buy via PayPal')
-                    .setEmoji('💳') // Emoji universel. Si tu as un emoji PayPal sur ton serv, mets son ID ici à la place !
+                    .setEmoji('<:PP:1525923651977875496>')
                     .setStyle(ButtonStyle.Link)
                     .setURL(paypalLink)
             );
