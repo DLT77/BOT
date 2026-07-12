@@ -1,0 +1,24 @@
+name: Allumer le Bot Discord
+
+on:
+  workflow_dispatch: # C'est CA qui crée le bouton pour l'allumer manuellement !
+
+jobs:
+  start-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Installer les modules
+        run: npm install
+
+      - name: Lancer le bot 🚀
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: node index.js
