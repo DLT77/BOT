@@ -92,7 +92,7 @@ client.on('interactionCreate', async interaction => {
                 .setTitle('📩 Welcome to Support')
                 .setDescription('> Please select an option from the menu below to open a ticket.\n> \n> *Do not open tickets without a valid reason.*')
                 .setColor('#2b2d31') // Discord invisible dark color
-                .setImage('https://i.imgur.com/K1U121E.png'); // Replace with your banner link if you have one
+                .setImage('https://cdn.discordapp.com/attachments/1382024566456455198/1525854660575891526/Capture_decran_2026-07-12_150604.png?ex=6a54e664&is=6a5394e4&hm=904c2435f6e6023848268b84cfcb8d97bbecad859ec763555842eb4fed7e0440&'); // Replace with your banner link if you have one
 
             // We store the category and role ID directly inside the customId (Pro trick)
             const menu = new ActionRowBuilder().addComponents(
