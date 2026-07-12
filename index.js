@@ -27,6 +27,17 @@ const commands = [
         .addRoleOption(opt => opt.setName('staff_role').setDescription('Staff role to mention when a ticket opens').setRequired(true))
         .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
 
+    // PUBLISH ASSET (Vente)
+    new SlashCommandBuilder()
+        .setName('publish-asset')
+        .setDescription('Publish a new asset for sale')
+        .addStringOption(opt => opt.setName('name').setDescription('Name of the asset').setRequired(true))
+        .addStringOption(opt => opt.setName('description').setDescription('Description of the asset').setRequired(true))
+        .addStringOption(opt => opt.setName('price').setDescription('Price (e.g., 15€ or $20)').setRequired(true))
+        .addStringOption(opt => opt.setName('image_url').setDescription('Direct link to the image (.png or .jpg)').setRequired(true))
+        .addStringOption(opt => opt.setName('video_url').setDescription('Link to a showcase video (Optional)').setRequired(false))
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
+
     // RULES EMBED
     new SlashCommandBuilder()
         .setName('rules')
@@ -146,6 +157,54 @@ client.on('interactionCreate', async interaction => {
 
             await channel.send({ content: '@everyone', embeds: [announceEmbed] });
             await interaction.reply({ content: '✅ Announcement sent!', ephemeral: true });
+        }
+
+        // 🛒 PUBLISH ASSET (PREMIUM SHOWCASE)
+        if (commandName === 'publish-asset') {
+            const name = interaction.options.getString('name');
+            const desc = interaction.options.getString('description');
+            const price = interaction.options.getString('price');
+            const image = interaction.options.getString('image_url');
+            const video = interaction.options.getString('video_url');
+
+            // Ton lien PayPal
+            const paypalLink = 'https://paypal.me/DeltX77?country.x=FR&locale.x=fr_FR';
+
+            // Construction de la description (Design Pro avec Markdown)
+            let embedDesc = `> ${desc}\n\n`;
+            embedDesc += `**💵 Price:** \`${price}\`\n`;
+            
+            // Si tu as mis un lien vidéo, il s'ajoute ici proprement
+            if (video) {
+                embedDesc += `🎥 **[Click here to watch the showcase video](${video})**\n\n`;
+            } else {
+                embedDesc += `\n`;
+            }
+
+            embedDesc += `**⚠️ PAYMENT INSTRUCTIONS:**\n`;
+            embedDesc += `> Payments must **STRICTLY** be sent as **"Friends and Family"** *(Ami proche)*.\n`;
+            embedDesc += `> *Any payment sent as "Goods and Services" will be refunded and the asset will not be delivered.*`;
+
+            const assetEmbed = new EmbedBuilder()
+                .setTitle(`📦 ASSET : ${name}`)
+                .setDescription(embedDesc)
+                .setColor('#0079C1') // Bleu officiel de PayPal
+                .setImage(image)
+                .setThumbnail('https://i.imgur.com/Wh2OQew.png') // Petit logo PayPal stylé en haut à droite
+                .setFooter({ text: 'Automated Asset Store • Secure payment via PayPal', iconURL: 'https://i.imgur.com/Wh2OQew.png' })
+                .setTimestamp();
+
+            // Création du bouton avec le lien
+            const row = new ActionRowBuilder().addComponents(
+                new ButtonBuilder()
+                    .setLabel('Buy via PayPal')
+                    .setEmoji('💳') // Emoji universel. Si tu as un emoji PayPal sur ton serv, mets son ID ici à la place !
+                    .setStyle(ButtonStyle.Link)
+                    .setURL(paypalLink)
+            );
+
+            await interaction.channel.send({ embeds: [assetEmbed], components: [row] });
+            await interaction.reply({ content: '✅ Asset successfully published in this channel!', ephemeral: true });
         }
 
         // 🎉 GIVEAWAY
