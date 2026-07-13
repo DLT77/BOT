@@ -1,7 +1,13 @@
-name: Allumer le Bot Discord
+name: Allumer le Bot Discord 24/7
 
 on:
-  workflow_dispatch: # C'est CA qui crée le bouton pour l'allumer manuellement !
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */5 * * *' # Relance automatique toutes les 5 heures (Automatique)
+
+concurrency:
+  group: bot-discord
+  cancel-in-progress: true
 
 jobs:
   start-bot:
