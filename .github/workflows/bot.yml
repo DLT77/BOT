@@ -3,7 +3,7 @@ name: Allumer le Bot Discord 24/7
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */5 * * *' # Relance automatique toutes les 5 heures (Automatique)
+    - cron: '0 */5 * * *'
 
 concurrency:
   group: bot-discord
@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Installer Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Installer les modules
         run: npm install
