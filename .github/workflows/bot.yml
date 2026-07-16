@@ -1,30 +1,31 @@
-name: Allumer le Bot Discord 24/7
+name: Bot Auto-Run 24/7
 
 on:
-  workflow_dispatch:
   schedule:
+    # Démarre automatiquement toutes les 5 heures pour esquiver la limite des 6 heures
     - cron: '0 */5 * * *'
+  workflow_dispatch: # Permet de l'allumer manuellement la première fois
 
 concurrency:
   group: bot-discord
-  cancel-in-progress: true
+  cancel-in-progress: true # C'est CA qui tue l'ancien bot pour laisser la place au nouveau sans bugger
 
 jobs:
   start-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Récupérer le code
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Installer Node.js
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Installer les modules
+          
+      - name: Install Discord library
         run: npm install
-
-      - name: Lancer le bot 🚀
+        
+      - name: Start the Bot 🚀
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: node index.js
